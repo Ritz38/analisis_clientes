@@ -194,7 +194,7 @@ if df is not None:
     st.subheader("Análisis de Correlación")
     analisis_correlacion(df)
     st.subheader("Mapa de Clientes")
-    filtro = st.selectbox("Seleccione filtro:", ['Global'] + list(df.columns))
+    filtro = st.selectbox("Seleccione filtro:", ['Global', 'Género', 'Frecuencia_Compra'])
     mapa_clientes(df, filtro)
     st.subheader("Análisis de Clúster")
     analisis_cluster(df)
