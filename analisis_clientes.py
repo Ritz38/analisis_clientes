@@ -191,6 +191,7 @@ def calcular_distancias(df):
 
 st.title("Análisis de Clientes")
 st.write('Hecho por: Juan Pablo Zuluaga Mesa')
+st.write('Link de sugerencia: https://raw.githubusercontent.com/gabrielawad/programacion-para-ingenieria/refs/heads/main/archivos-datos/aplicaciones/analisis_clientes.csv')
 opcion = st.radio("Seleccione el método de carga de datos:", ("Subir archivo", "Ingresar URL"))
 
 df = None
