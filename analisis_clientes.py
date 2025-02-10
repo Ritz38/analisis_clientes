@@ -190,6 +190,7 @@ def calcular_distancias(df):
 
 
 st.title("Análisis de Clientes")
+st.write('Hecho por: Juan Pablo Zuluaga Mesa')
 opcion = st.radio("Seleccione el método de carga de datos:", ("Subir archivo", "Ingresar URL"))
 
 df = None
@@ -208,6 +209,7 @@ if df is not None:
     st.subheader("Mapa de Clientes")
     filtro = st.selectbox("Seleccione filtro:", ['Global', 'Género', 'Frecuencia_Compra'])
     mapa_clientes(df, filtro)
+    st.subheader('La implementacion llego hasta aqui, el demas analisis proximamente...')
     st.subheader("Análisis de Clúster")
     analisis_cluster(df)
     st.subheader("Gráfico de Barras")
