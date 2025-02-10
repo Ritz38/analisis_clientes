@@ -151,9 +151,20 @@ def mapa_clientes(df, filtro=None):
 
     fig, ax = plt.subplots()
     mundo_dataframe.plot(ax=ax, color='white', edgecolor='black')
-    df.plot.scatter(ax=ax, x='Longitud', y='Latitud', c=df[filtro] if filtro!='Global' else 'blue', cmap='coolwarm')
-    ax.set_title(f'Mapa de Clientes {filtro if filtro!='Global' else "Global"}')
-    st.pyplot(fig)
+    # Verificar si el filtro es válido
+    if filtro != "Global":
+        categorias = df[filtro].astype(str).unique()
+        colores = plt.cm.get_cmap("coolwarm", len(categorias))
+
+        # Asignar colores a cada categoría
+        color_map = {categoria: colores(i) for i, categoria in enumerate(categorias)}
+        colores_puntos = df[filtro].map(color_map)
+
+        sc = ax.scatter(df["Longitud"], df["Latitud"], c=colores_puntos, alpha=0.6, edgecolor="black")
+        ax.legend(handles=[plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=color_map[c], markersize=8, label=c) for c in categorias],
+                  title=filtro, loc="upper right")
+    else:
+        ax.scatter(df["Longitud"], df["Latitud"], color="blue", alpha=0.6, edgecolor="black")
 
 def analisis_cluster(df):
     st.write("Distribución de Clusters:")
