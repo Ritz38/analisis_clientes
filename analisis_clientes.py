@@ -144,9 +144,14 @@ def analisis_correlacion(df):
         st.warning(f"⚠️ No hay suficientes datos para calcular la correlación en {genero} - {frecuencia}.")
 
 def mapa_clientes(df, filtro=None):
+    ruta_mapa = "https://naturalearth.s3.amazonaws.com/50m_cultural\
+/ne_50m_admin_0_countries.zip"
+    mundo_dataframe = gpd.read_file(ruta_0)
+
     fig, ax = plt.subplots()
-    df.plot.scatter(x='Longitud', y='Latitud', c=df[filtro] if filtro else 'blue', cmap='coolwarm', ax=ax)
-    ax.set_title(f'Mapa de Clientes {filtro if filtro else "Global"}')
+    mundo_dataframe.plot(ax=ax, color='white', edgecolor='black')
+    df.plot.scatter(ax=ax, x='Longitud', y='Latitud', c=df[filtro] if filtro!='Global' else 'blue', cmap='coolwarm', ax=ax)
+    ax.set_title(f'Mapa de Clientes {filtro if filtro!='Global' else "Global"}')
     st.pyplot(fig)
 
 def analisis_cluster(df):
@@ -188,7 +193,7 @@ if df is not None:
     st.subheader("Análisis de Correlación")
     analisis_correlacion(df)
     st.subheader("Mapa de Clientes")
-    filtro = st.selectbox("Seleccione filtro:", [None] + list(df.columns))
+    filtro = st.selectbox("Seleccione filtro:", ['Global'] + list(df.columns))
     mapa_clientes(df, filtro)
     st.subheader("Análisis de Clúster")
     analisis_cluster(df)
