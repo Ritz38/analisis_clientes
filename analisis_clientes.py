@@ -150,7 +150,7 @@ def mapa_clientes(df, filtro=None):
 
     fig, ax = plt.subplots()
     mundo_dataframe.plot(ax=ax, color='white', edgecolor='black')
-    df.plot.scatter(ax=ax, x='Longitud', y='Latitud', c=df[filtro] if filtro!='Global' else 'blue', cmap='coolwarm', ax=ax)
+    df.plot.scatter(ax=ax, x='Longitud', y='Latitud', c=df[filtro] if filtro!='Global' else 'blue', cmap='coolwarm')
     ax.set_title(f'Mapa de Clientes {filtro if filtro!='Global' else "Global"}')
     st.pyplot(fig)
 
