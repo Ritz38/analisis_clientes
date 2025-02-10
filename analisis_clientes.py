@@ -104,11 +104,44 @@ def leer_archivo(url):
     return df
 
 def analisis_correlacion(df):
-    st.write("Correlación Global:", df.corr())
-    st.write("Correlación entre edad e ingreso anual:")
-    st.write(df["Edad"].corr(df["Ingreso_Anual_USD"]))
-    st.write("Correlación por Frecuencia de Compra:")
-    st.write(df.groupby('Frecuencia_Compra')[['Edad', 'Ingreso_Anual_USD']].corr().iloc[::2, 1])
+    """Analiza la correlación entre Edad e Ingreso_Anual_USD y permite segmentarla por Género y Frecuencia de Compra.
+    
+    Args:
+        df (pd.DataFrame): DataFrame con las columnas 'Edad', 'Ingreso_Anual_USD', 'Género' y 'Frecuencia_Compra'.
+    """
+
+    # Verificar que las columnas necesarias existan
+    columnas_necesarias = {"Edad", "Ingreso_Anual_USD", "Género", "Frecuencia_Compra"}
+
+    genero = st.selectbox("Selecciona el Género:", ["Masculino", "Femenino"])
+    frecuencia = st.selectbox("Selecciona la Frecuencia de Compra:", ["Baja", "Media", "Alta"])
+
+    correlacion_global = df["Edad"].corr(df["Ingreso_Anual_USD"])
+    st.write(f"📊 **Correlación Global (Edad vs Ingreso Anual):** {correlacion_global:.2f}")
+
+    fig, ax = plt.subplots(figsize=(6, 4))
+    ax.scatter(df["Edad"], df["Ingreso_Anual_USD"], alpha=0.5, c="blue")
+    ax.set_title(f"Correlación Global: {correlacion_global:.2f}")
+    ax.set_xlabel("Edad")
+    ax.set_ylabel("Ingreso Anual (USD)")
+    st.pyplot(fig)
+
+    # 📌 Filtrar datos según selección
+    subset = df[(df["Género"] == genero) & (df["Frecuencia_Compra"] == frecuencia)]
+
+    if len(subset) > 2:  # Necesitamos al menos 3 datos para calcular correlación
+        correlacion = subset["Edad"].corr(subset["Ingreso_Anual_USD"])
+        st.write(f"**Correlación para {genero} - Frecuencia {frecuencia}:** {correlacion:.2f}")
+
+        # 📉 Gráfico de dispersión segmentado
+        fig, ax = plt.subplots(figsize=(6, 4))
+        ax.scatter(subset["Edad"], subset["Ingreso_Anual_USD"], alpha=0.5, color="red")
+        ax.set_title(f"{genero} - {frecuencia} (r={correlacion:.2f})")
+        ax.set_xlabel("Edad")
+        ax.set_ylabel("Ingreso Anual (USD)")
+        st.pyplot(fig)
+    else:
+        st.warning(f"⚠️ No hay suficientes datos para calcular la correlación en {genero} - {frecuencia}.")
 
 def mapa_clientes(df, filtro=None):
     fig, ax = plt.subplots()
