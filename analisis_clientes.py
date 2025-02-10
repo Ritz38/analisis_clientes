@@ -165,6 +165,7 @@ def mapa_clientes(df, filtro=None):
                   title=filtro, loc="upper right")
     else:
         ax.scatter(df["Longitud"], df["Latitud"], color="blue", alpha=0.6, edgecolor="black")
+    st.pyplot(fig)
 
 def analisis_cluster(df):
     st.write("Distribución de Clusters:")
