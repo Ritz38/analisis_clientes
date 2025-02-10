@@ -110,11 +110,6 @@ def analisis_correlacion(df):
         df (pd.DataFrame): DataFrame con las columnas 'Edad', 'Ingreso_Anual_USD', 'Género' y 'Frecuencia_Compra'.
     """
 
-    # Verificar que las columnas necesarias existan
-    columnas_necesarias = {"Edad", "Ingreso_Anual_USD", "Género", "Frecuencia_Compra"}
-
-    genero = st.selectbox("Selecciona el Género:", ["Masculino", "Femenino"])
-    frecuencia = st.selectbox("Selecciona la Frecuencia de Compra:", ["Baja", "Media", "Alta"])
 
     correlacion_global = df["Edad"].corr(df["Ingreso_Anual_USD"])
     st.write(f"📊 **Correlación Global (Edad vs Ingreso Anual):** {correlacion_global:.2f}")
@@ -125,6 +120,11 @@ def analisis_correlacion(df):
     ax.set_xlabel("Edad")
     ax.set_ylabel("Ingreso Anual (USD)")
     st.pyplot(fig)
+
+    genero = st.selectbox("Selecciona el Género:", ["Masculino", "Femenino"])
+    frecuencia = st.selectbox("Selecciona la Frecuencia de Compra:", ["Baja", "Media", "Alta"])
+
+    
 
     # 📌 Filtrar datos según selección
     subset = df[(df["Género"] == genero) & (df["Frecuencia_Compra"] == frecuencia)]
