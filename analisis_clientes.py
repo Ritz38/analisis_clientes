@@ -101,14 +101,12 @@ def interpolar(df):
 
 def leer_archivo(url):
     df = interpolar(pd.read_csv(url))
-    
-    
     return df
 
 def analisis_correlacion(df):
-    st.write("Correlación Global:", df[['Edad', 'Ingreso_Anual_USD']].corr().iloc[0, 1])
-    st.write("Correlación por Género:")
-    st.write(df.groupby('Género')[['Edad', 'Ingreso_Anual_USD']].corr().iloc[::2, 1])
+    st.write("Correlación Global:", df.corr())
+    st.write("Correlación entre edad e ingreso anual:")
+    st.write(df["Edad"].corr(df["Ingreso_Anual_USD"]))
     st.write("Correlación por Frecuencia de Compra:")
     st.write(df.groupby('Frecuencia_Compra')[['Edad', 'Ingreso_Anual_USD']].corr().iloc[::2, 1])
 
