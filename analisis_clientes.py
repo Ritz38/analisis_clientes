@@ -146,7 +146,7 @@ def analisis_correlacion(df):
 def mapa_clientes(df, filtro=None):
     ruta_mapa = "https://naturalearth.s3.amazonaws.com/50m_cultural\
 /ne_50m_admin_0_countries.zip"
-    mundo_dataframe = gpd.read_file(ruta_0)
+    mundo_dataframe = gpd.read_file(ruta_mapa)
 
     fig, ax = plt.subplots()
     mundo_dataframe.plot(ax=ax, color='white', edgecolor='black')
