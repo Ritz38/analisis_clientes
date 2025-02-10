@@ -146,7 +146,7 @@ def mapa_clientes(df, filtro=None):
         colores_puntos = df[filtro].map(color_map)
 
         sc = ax.scatter(df["Longitud"], df["Latitud"], c=colores_puntos, edgecolor="black")
-        ax.legend(handles=[plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=color_map[c], markersize=4, label=c) for c in categorias],
+        ax.legend(handles=[plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=color_map[c], markersize=8, label=c) for c in categorias],
                   title=filtro, loc="upper right")
     else:
         ax.scatter(df["Longitud"], df["Latitud"], color="blue", alpha=0.6, edgecolor="black")
