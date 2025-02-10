@@ -147,10 +147,11 @@ def mapa_clientes(df, filtro=None):
     ruta_mapa = "https://naturalearth.s3.amazonaws.com/50m_cultural\
 /ne_50m_admin_0_countries.zip"
     mundo_dataframe = gpd.read_file(ruta_mapa)
+    mundo_dataframe = mundo_dataframe[mundo_dataframe['CONTINENT'] == continente]
 
     fig, ax = plt.subplots()
     mundo_dataframe.plot(ax=ax, color='white', edgecolor='black')
-    df.plot.scatter(ax=ax, x='Longitud', y='Latitud', c=df[filtro] if filtro!='Global' else 'blue', cmap='coolwarm')
+    df.plot.scatter(ax=ax, x='Longitud', y='Latitud', c=df[filtro] if filtro!='Global' else 'blue', cmap='coolwarm', markersize=1)
     ax.set_title(f'Mapa de Clientes {filtro if filtro!='Global' else "Global"}')
     st.pyplot(fig)
 
